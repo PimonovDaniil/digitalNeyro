@@ -23,18 +23,17 @@
 # print(mnist['target'][5])
 
 
-#Создаём файл с весами
 import json
-# weight=[]
-# for i in range(784):
-#     weight.append(0.0)
-# with open("weight.txt", "w") as write_file:
-#     json.dump(weight, write_file)
+from sklearn.datasets import fetch_openml
+
+#загружаем файл с весами
+with open("weight.txt", "r") as write_file:
+    weight= json.load(write_file)
+
+#загружаем данные для обучения
+mnist = fetch_openml('mnist_784')
 
 
-# from sklearn.datasets import fetch_openml
-# mnist = fetch_openml('mnist_784')
-# print(len(mnist['data']))
-# for i in range(len(mnist['data'])):
-#     input = mnist['data'][i]
+for i in range(len(mnist['data'])):
+    input = mnist['data'][i]
 
