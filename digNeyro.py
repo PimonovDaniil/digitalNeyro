@@ -24,11 +24,13 @@
 
 
 import json
+
 from sklearn.datasets import fetch_openml
 
 #загружаем файл с весами
 with open("weight.txt", "r") as write_file:
     weight= json.load(write_file)
+print(weight)
 
 #загружаем данные для обучения
 mnist = fetch_openml('mnist_784')
