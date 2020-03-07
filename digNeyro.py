@@ -23,24 +23,34 @@ def ele_mul(delta, input):
     return output
 
 #загружаем файл с весами
-# with open("weight.txt", "r") as write_file:
-#     weights = json.load(write_file) #10*784
+with open("weight.txt", "r") as write_file:
+    weights = json.load(write_file) #10*784
 
-#генерируем структуру
-weights=[]
-for i in range(10):
-    s=[]
-    for j in range(784):
-        s.append(0.5)
-    weights.append(s)
-print(weights)
+# #генерируем структуру
+# weights=[]
+# for i in range(10):
+#     s=[]
+#     for j in range(784):
+#         s.append(0.5)
+#     weights.append(s)
+# print(weights)
 
 #загружаем данные для обучения
 mnist = fetch_openml('mnist_784')
 
 alpha = 0.0000001 #чистая магия
 
-for j in range(10000):#входные даныные
+# #Проверка роботоспособности
+# for i in range(100):
+#     print(mnist['target'][i], end=' ')
+#     m=[]
+#     for k in range(10):
+#         pred = neural_network(mnist['data'][i], weights[k])
+#         m.append(pred)
+#         #print(pred)
+#     print(m.index(max(m)))
+
+for j in range(60000):#входные даныные
     print(j)
     #print(mnist['target'][j])
     input= mnist['data'][j] #вход 784
@@ -58,6 +68,7 @@ for j in range(10000):#входные даныные
             for i in range(len(weights[k])):
                 weights[k][i] -= weight_deltas[i] * alpha
         #print("pred: " + str(pred))
+        #print("error: "+str(error))
 
 with open("weight.txt", "w") as write_file:
     json.dump(weights, write_file)# сохраняем веса
