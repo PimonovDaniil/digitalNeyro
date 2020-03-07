@@ -1,41 +1,35 @@
-#тупа нейрон
-# input = 0.5
-# weight = 0.0
-# realy=0.8
-# a=0.3
-# for i in range(200):
-#     pred=input*weight
-#     weight_delta=(pred-realy)*input
-#     weight-=weight_delta*a
-#     print(pred)
+def w_sum(a, b):
+    assert(len(a) == len(b))
+    output = 0
+    for i in range(len(a)):
+        output += (a[i] * b[i])
+    return output
 
+def neural_network(input, weights): #возвращает сумму перемноженных на input весов
+    pred = w_sum(input, weights)
+    return pred
 
-#работа с данными обучающими
-# k=0
-# for i in range(28):
-#     for j in range(28):
-#         if mnist['data'][5][k] > 0.1:
-#             print('1', end='')
-#         else:
-#             print('0', end='')
-#         k += 1
-#     print()
-# print(mnist['target'][5])
+def ele_mul(delta, input):
+    output =[]
+    for i in range(len(input)):
+        output.append(0)
+    assert (len(output) == len(input))
 
+    for i in range(len(output)):
+        output[i]= delta*input[i]
+    return output
 
-import json
+weights = [[0.1, 0.2, -0.1],[0.1, 0.2, -0.1]]
+input= [8.5, 0.65, 1.2] #вход
+really = [2, 3] #выход
+alpha = 0.01
 
-from sklearn.datasets import fetch_openml
+for k in range(len(really)):
+    for j in range(10):#цикл для обучения нейронов
+        pred = neural_network(input, weights[k])
+        delta = (pred - really[k])
+        weight_deltas = ele_mul(delta, input)
 
-#загружаем файл с весами
-with open("weight.txt", "r") as write_file:
-    weight= json.load(write_file)
-print(weight)
-
-#загружаем данные для обучения
-mnist = fetch_openml('mnist_784')
-
-
-for i in range(len(mnist['data'])):
-    input = mnist['data'][i]
-
+        for i in range(len(weights)):
+            weights[k][i] -= weight_deltas[i] * alpha
+    print(pred)
