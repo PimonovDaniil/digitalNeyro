@@ -40,8 +40,11 @@ mnist = fetch_openml('mnist_784')
 
 alpha = 0.0000001 #чистая магия
 
-# #Проверка роботоспособности
+# #Проверка обученности нейронки
+# sum=0
+# kol=0
 # for i in range(100):
+#     sum+=1
 #     print(mnist['target'][i], end=' ')
 #     m=[]
 #     for k in range(10):
@@ -49,6 +52,11 @@ alpha = 0.0000001 #чистая магия
 #         m.append(pred)
 #         #print(pred)
 #     print(m.index(max(m)))
+#     if(int(mnist['target'][i])==m.index(max(m))):
+#         kol+=1
+# print(kol/sum)
+
+
 
 for j in range(60000):#входные даныные
     print(j)
