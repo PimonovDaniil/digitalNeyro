@@ -40,43 +40,43 @@ mnist = fetch_openml('mnist_784')
 
 alpha = 0.0000001 #чистая магия
 
-# #Проверка обученности нейронки
-# sum=0
-# kol=0
-# for i in range(100):
-#     sum+=1
-#     print(mnist['target'][i], end=' ')
-#     m=[]
-#     for k in range(10):
-#         pred = neural_network(mnist['data'][i], weights[k])
-#         m.append(pred)
-#         #print(pred)
-#     print(m.index(max(m)))
-#     if(int(mnist['target'][i])==m.index(max(m))):
-#         kol+=1
-# print(kol/sum)
+#Проверка обученности нейронки
+sum=0
+kol=0
+for i in range(10000):
+    sum+=1
+    print(mnist['target'][i], end=' ')
+    m=[]
+    for k in range(10):
+        pred = neural_network(mnist['data'][i], weights[k])
+        m.append(pred)
+        #print(pred)
+    print(m.index(max(m)))
+    #ожидание - реальность
+    if(int(mnist['target'][i])==m.index(max(m))):
+        kol+=1
+print(str((kol/sum)*100)+"% успеха")
 
-
-
-for j in range(60000):#входные даныные
-    print(j)
-    #print(mnist['target'][j])
-    input= mnist['data'][j] #вход 784
-    really = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] #выход 10 нейронов
-    really[int(mnist['target'][j])] = 5.0
-    for k in range(len(really)):#обучаем один набор нейросети (k - кол-во выходов)
-        error=10000#большое число
-        while(error>0.01):#Пока ошибка не станет приемлемой
-            pred = neural_network(input, weights[k])
-            delta = (pred - really[k])
-            weight_deltas = ele_mul(delta, input)
-            error = (pred - really[k])**2
-            # print("error " + str(error))
-            # print("pred: " + str(pred))
-            for i in range(len(weights[k])):
-                weights[k][i] -= weight_deltas[i] * alpha
-        #print("pred: " + str(pred))
-        #print("error: "+str(error))
-
-with open("weight.txt", "w") as write_file:
-    json.dump(weights, write_file)# сохраняем веса
+# #обучение нейронки
+# for j in range(69000):#входные даныные
+#     print(j)
+#     #print(mnist['target'][j])
+#     input= mnist['data'][j] #вход 784
+#     really = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0] #выход 10 нейронов
+#     really[int(mnist['target'][j])] = 5.0
+#     for k in range(len(really)):#обучаем один набор нейросети (k - кол-во выходов)
+#         pred = neural_network(input, weights[k])
+#         delta = (pred - really[k])
+#         weight_deltas = ele_mul(delta, input)
+#         error = (pred - really[k])**2
+#         # print("error " + str(error))
+#         # print("pred: " + str(pred))
+#         for i in range(len(weights[k])):
+#             weights[k][i] -= weight_deltas[i] * alpha
+#         #print("pred: " + str(pred))
+#         #print("error: "+str(error))
+#     #сохраняем результат, чтобы не потерять его
+#     if (j+1)%1000 == 0:
+#         print("load result")
+#         with open("weight.txt", "w") as write_file:
+#             json.dump(weights, write_file)# сохраняем веса
