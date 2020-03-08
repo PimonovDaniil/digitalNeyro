@@ -43,8 +43,8 @@ alpha = 0.000000001 #чистая магия
 #Проверка обученности нейронки
 sum=0
 kol=0
-for i in range(10000):
-    sum+=1
+for i in range(69000, 70000):
+    sum += 1
     print(mnist['target'][i], end=' ')
     m=[]
     for k in range(10):
